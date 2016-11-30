@@ -18,10 +18,14 @@ module.exports = function(grunt) {
 
   grunt.registerMultiTask('protractor', 'A grunt task to run protractor.', function() {
 
+    var protractorDep = 'protractor';
+    if (grunt.option('performance') == true) {
+      protractorDep = 'protractor-perf';
+    }
     // '.../node_modules/protractor/lib/protractor.js'
-    var protractorMainPath = require.resolve('protractor');
+    var protractorMainPath = require.resolve(protractorDep);
     // '.../node_modules/protractor/bin/protractor'
-    var protractorBinPath = path.resolve(protractorMainPath, '../../bin/protractor');
+    var protractorBinPath = path.resolve(protractorMainPath, '../../bin/', protractorDep);
     // '.../node_modules/protractor/bin/webdriver-manager'
     var webdriverManagerPath = path.resolve(protractorMainPath, '../../bin/webdriver-manager');
 
